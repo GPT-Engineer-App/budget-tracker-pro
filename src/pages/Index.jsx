@@ -18,7 +18,7 @@ const Index = () => {
   const [balance, setBalance] = useState(transactions.reduce((acc, transaction) => (transaction.type === "income" ? acc + transaction.amount : acc - transaction.amount), 0));
 
   const handleAddTransaction = () => {
-    setTransactions([
+    const newTransactions = [
       ...transactions,
       {
         id: transactions.length + 1,
@@ -27,10 +27,11 @@ const Index = () => {
         type: tempTransaction.type,
         category: tempTransaction.category,
       },
-    ]);
-    updateBalance();
+    ];
+    setTransactions(newTransactions);
     setTempTransaction({});
     toast({ title: "Transaction added", status: "success", duration: 3000 });
+    updateBalance(newTransactions);
   };
 
   const handleEditTransaction = (id) => {
